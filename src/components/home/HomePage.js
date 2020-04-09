@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+//hooks
+import useInputState from "../../hooks/useInputState";
+
 //MUI stuff
 import { withStyles } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
@@ -73,7 +76,21 @@ const styles = (theme) => ({
   },
 });
 
-function home({ classes }) {
+function HomePage({ classes }) {
+  const [emailState, handleEmailChange, handleEmailReset] = useInputState("");
+  const [
+    passwordState,
+    handlePasswordChange,
+    handlePasswordReset,
+  ] = useInputState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(emailState, " - ", passwordState);
+    handleEmailReset();
+    handlePasswordReset();
+  };
+
   return (
     <Grid
       container
@@ -87,13 +104,15 @@ function home({ classes }) {
             ORM Accounting
           </Typography>
           <hr className={classes.hrText} />
-          <form className={classes.form}>
+          <form className={classes.form} onSubmit={handleSubmit}>
             <TextField
               id="email"
               name="email"
               type="email"
               label="Email"
               margin="normal"
+              value={emailState}
+              onChange={handleEmailChange}
               fullWidth
               required
             ></TextField>
@@ -103,6 +122,8 @@ function home({ classes }) {
               type="password"
               label="Password"
               margin="normal"
+              value={passwordState}
+              onChange={handlePasswordChange}
               fullWidth
               required
             ></TextField>
@@ -110,6 +131,7 @@ function home({ classes }) {
               variant="contained"
               color="primary"
               size="large"
+              type="submit"
               className={classes.submitButton}
               fullWidth
             >
@@ -123,7 +145,7 @@ function home({ classes }) {
             <Button
               className={classes.signupButton}
               variant="outlined"
-              color="secondary"
+              color="primary"
               size="large"
               fullWidth
             >
@@ -135,4 +157,4 @@ function home({ classes }) {
     </Grid>
   );
 }
-export default withStyles(styles)(home);
+export default withStyles(styles)(HomePage);
