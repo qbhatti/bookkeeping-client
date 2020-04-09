@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 //hooks
 import useInputState from "../../hooks/useInputState";
 
+//redux
+import { connect } from "react-redux";
+import { userInfo } from "../../redux/actions/userActions";
+
 //MUI stuff
 import { withStyles } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
@@ -76,7 +80,7 @@ const styles = (theme) => ({
   },
 });
 
-function HomePage({ classes }) {
+function HomePage({ classes, userInfo }) {
   const [emailState, handleEmailChange, handleEmailReset] = useInputState("");
   const [
     passwordState,
@@ -87,6 +91,7 @@ function HomePage({ classes }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(emailState, " - ", passwordState);
+    userInfo(emailState, passwordState);
     handleEmailReset();
     handlePasswordReset();
   };
@@ -157,4 +162,14 @@ function HomePage({ classes }) {
     </Grid>
   );
 }
-export default withStyles(styles)(HomePage);
+
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+const mapActionsToProps = { userInfo };
+
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(withStyles(styles)(HomePage));
