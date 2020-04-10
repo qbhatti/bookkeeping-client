@@ -99,16 +99,12 @@ function LoginPage({ classes, loginUser, history, ui }) {
     ""
   );
   const [errors, setErrors] = useState({});
-  const [uiLoading, setUILoading] = useState(false);
 
   useEffect(() => {
-    if (ui.loading !== uiLoading) {
-      setUILoading(ui.loading);
-    }
     if (ui.errors) {
       setErrors(ui.errors);
     }
-  }, [ui.errors, ui.loading]);
+  }, [ui.errors]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -165,10 +161,10 @@ function LoginPage({ classes, loginUser, history, ui }) {
               size="large"
               type="submit"
               className={classes.submitButton}
-              disabled={uiLoading}
+              disabled={ui.loading}
               fullWidth
             >
-              {uiLoading && (
+              {ui.loading && (
                 <CircularProgress
                   className={classes.progress}
                   size={25}

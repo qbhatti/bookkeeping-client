@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  SET_UNAUTHENTICATED,
   LOADING_USER,
   SET_USER,
   LOADING_UI,
@@ -16,7 +17,7 @@ export const loginUser = (userData, history) => (dispatch) => {
       setAuthorizationHeader(res.data.token);
       dispatch(getUserData());
       dispatch({ type: CLEAR_ERRORS });
-      history.push("/home");
+      history.push("/");
     })
     .catch((err) => {
       dispatch({
@@ -24,6 +25,12 @@ export const loginUser = (userData, history) => (dispatch) => {
         payload: err.response.data
       });
     });
+};
+
+export const logoutUser = () => (dispatch) => {
+  localStorage.removeItem("FBIdToken");
+  delete axios.defaults.headers.common["Authorization"];
+  dispatch({ type: SET_UNAUTHENTICATED });
 };
 
 export const getUserData = () => (dispatch) => {

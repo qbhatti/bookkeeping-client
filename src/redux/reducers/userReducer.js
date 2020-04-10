@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
     case SET_AUTHENTICATED:
       return {
         ...state,
-        authenitcated: true
+        authenticated: true
       };
     case SET_UNAUTHENTICATED:
       return initialState;
