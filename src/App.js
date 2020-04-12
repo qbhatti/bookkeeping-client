@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import { Switch, Route } from "react-router-dom";
+import { Switch } from "react-router-dom";
 //redux
 import { Provider } from "react-redux";
 import store from "./redux/store";

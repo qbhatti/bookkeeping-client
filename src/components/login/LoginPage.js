@@ -94,11 +94,11 @@ const styles = (theme) => ({
 });
 
 function LoginPage({ classes, loginUser, history, ui }) {
-  const [email, handleEmailChange, handleEmailReset] = useInputState("");
-  const [password, handlePasswordChange, handlePasswordReset] = useInputState(
-    ""
-  );
+  //****** INIT STATE ******
+  const [email, handleEmailChange] = useInputState("");
+  const [password, handlePasswordChange] = useInputState("");
   const [errors, setErrors] = useState({});
+  // ******** END STATE *****
 
   useEffect(() => {
     if (ui.errors) {
@@ -110,8 +110,6 @@ function LoginPage({ classes, loginUser, history, ui }) {
     e.preventDefault();
     const userData = { email, password };
     loginUser(userData, history);
-    handleEmailReset();
-    handlePasswordReset();
   };
 
   return (
