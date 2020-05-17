@@ -18,7 +18,11 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+//styles
+import commonStyles from "../../styles/commonStyles";
+
 const styles = (theme) => ({
+  ...commonStyles,
   root: {
     flexGrow: 1,
     textAlign: "center",
@@ -44,38 +48,6 @@ const styles = (theme) => ({
     }
   },
 
-  hrText: {
-    lineHeight: "1em",
-    position: "relative",
-    outline: 0,
-    border: 0,
-    color: "black",
-    textAlign: "center",
-    height: "1.5em",
-    margin: "0px -20px 0px -20px",
-
-    "&:before": {
-      content: "''",
-      background:
-        "linear-gradient(to right, transparent,#616161, #818078, #616161, transparent)",
-      position: "absolute",
-      left: 0,
-      top: "50%",
-      width: "100%",
-      height: 1
-    },
-    "&:after": {
-      content: "attr(data-content)",
-      position: "relative",
-      display: "inline-block",
-
-      padding: "0 .5em",
-      lineHeight: "1.5em",
-      // this is really the only tricky part, you need to specify the background color of the container element...
-      color: "#818078",
-      backgroundColor: "#fff"
-    }
-  },
   link: {
     textDecoration: "none"
   },

@@ -5,4 +5,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(245, 245, 245);
+}
+
+.container {
+  margin: 0px auto 0px auto;
+  max-width: 1200px;
+}
+
+a {
+  text-decoration: none;
 }

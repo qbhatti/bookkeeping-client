@@ -8,9 +8,9 @@ import store from "./redux/store";
 import { SET_AUTHENTICATED } from "./redux/types";
 import { logoutUser, getUserData } from "./redux/actions/userActions";
 //pages
-import HomePage from "./components/home/HomePage";
-import LoginPage from "./components/login/LoginPage";
-import SignupPage from "./components/signup/SignupPage";
+import HomePage from "./pages/home/HomePage";
+import LoginPage from "./pages/login/LoginPage";
+import SignupPage from "./pages/signup/SignupPage";
 //components
 import AuthRoute from "./components/utils/AuthRoute";
 import ProtectedRoute from "./components/utils/ProtectedRoute";
@@ -36,16 +36,18 @@ if (token) {
 function App() {
   return (
     <Provider store={store}>
-      <Switch>
-        {/*
+      <div className="container">
+        <Switch>
+          {/*
         AuthRoute: redirects to users home page if user is already authenticated, else renders the component
         ProtectedRoute: redirects to login page if user tries to access a protected url
         Route: behaves normally        
         */}
-        <AuthRoute exact path="/signup" component={SignupPage} />
-        <ProtectedRoute exact path="/" component={HomePage} />
-        <AuthRoute exact path="/login" component={LoginPage} />
-      </Switch>
+          <AuthRoute exact path="/signup" component={SignupPage} />
+          <ProtectedRoute exact path="/" component={HomePage} />
+          <AuthRoute exact path="/login" component={LoginPage} />
+        </Switch>
+      </div>
     </Provider>
   );
 }
