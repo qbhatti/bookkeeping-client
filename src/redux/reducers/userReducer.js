@@ -9,7 +9,7 @@ const initialState = {
   authenticated: false,
   loading: false,
   credentials: {},
-  transactions: []
+  accounts: []
 };
 
 export default (state = initialState, action) => {
@@ -31,7 +31,7 @@ export default (state = initialState, action) => {
       return {
         authenticated: true,
         loading: false,
-        ...action.payload // {credentials, transactions}
+        ...action.payload // {credentials, accounts}
       };
     default:
       return state;

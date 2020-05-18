@@ -65,6 +65,7 @@ export const getUserData = () => (dispatch) => {
       console.log(err);
     });
 };
+
 const setAuthorizationHeader = (token) => {
   const FBIdToken = `Bearer ${token}`;
   localStorage.setItem("FBIdToken", FBIdToken);

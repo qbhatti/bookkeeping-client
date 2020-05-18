@@ -1,31 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-//Redux
-import { connect } from "react-redux";
-
 //MUI Stuff
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
-import MuiLink from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
-import LocationOn from "@material-ui/icons/LocationOn";
-import LinkIcon from "@material-ui/icons/Link";
-import CalendarToday from "@material-ui/icons/CalendarToday";
-import EditIcon from "@material-ui/icons/Edit";
-import KeyboardReturn from "@material-ui/icons/KeyboardReturn";
 
-//styles
+//misc
+import { convertBalanceToString } from "../helpers/helpers";
 import commonStyles from "../styles/commonStyles";
 
 const styles = {
   ...commonStyles,
   paper: {
     padding: 20,
-    position: "sticky",
-    top: 80
+    position: "sticky"
   },
   summary: {
     marginTop: 10
@@ -35,7 +25,6 @@ const styles = {
 function Profile(props) {
   const {
     user: {
-      authenticated,
       loading,
       credentials: {
         numDebitAccounts,
@@ -50,16 +39,9 @@ function Profile(props) {
     },
     classes
   } = props;
-
   const getTotalBalance = () => {
-    let balance = totalCredit - totalDebit;
-
-    if (balance < 0) {
-      return balance + " /- Db";
-    } else if (balance > 0) {
-      return balance + " /- Cr";
-    }
-    return balance + " /-";
+    let balance = totalDebit - totalCredit;
+    return convertBalanceToString(balance);
   };
 
   const getNumEqualAccounts = () => {
@@ -192,11 +174,8 @@ function Profile(props) {
 }
 
 Profile.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  user: state.user
-});
-
-export default connect(mapStateToProps)(withStyles(styles)(Profile));
+export default withStyles(styles)(Profile);
