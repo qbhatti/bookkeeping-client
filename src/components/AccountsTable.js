@@ -5,6 +5,9 @@ import Paper from "@material-ui/core/Paper";
 import { connect } from "react-redux";
 import { getAccountDetails } from "../redux/actions/dataActions";
 
+//hooks
+import useWindowDimensions from "../hooks/useWindowDimensions";
+
 //components
 import ReactVirtualizedTable from "./utils/ReactVirtualizedTable";
 
@@ -17,8 +20,44 @@ function AccountsTable({ accountsList, getAccountDetails, history }) {
     ...account
   }));
 
+  const { width } = useWindowDimensions();
+
   const handleRowClick = ({ index }) => {
     getAccountDetails(rows[index].accountId, history);
+  };
+
+  const getColumns = () => {
+    let columns = [];
+    const nameColumn = {
+      width: 300,
+      label: "Name",
+      dataKey: "name"
+    };
+    const phoneNumColumn = {
+      width: 180,
+      label: "Phone\u00A0Number",
+      dataKey: "phoneNum"
+    };
+    const emailColumn = {
+      width: 180,
+      label: "Email",
+      dataKey: "email"
+    };
+    const balanceColumn = {
+      width: 180,
+      label: "Balance",
+      dataKey: "balance",
+      numeric: true
+    };
+
+    columns.push(nameColumn);
+    if (width > 850) {
+      columns[0].width = 450;
+      columns.push(phoneNumColumn);
+      columns.push(emailColumn);
+    }
+    columns.push(balanceColumn);
+    return columns;
   };
 
   return (
@@ -34,29 +73,7 @@ function AccountsTable({ accountsList, getAccountDetails, history }) {
         rowCount={rows.length}
         rowGetter={({ index }) => rows[index]}
         onRowClick={handleRowClick}
-        columns={[
-          {
-            width: 300,
-            label: "Name",
-            dataKey: "name"
-          },
-          {
-            width: 180,
-            label: "Phone\u00A0Number",
-            dataKey: "phoneNum"
-          },
-          {
-            width: 180,
-            label: "Email",
-            dataKey: "email"
-          },
-          {
-            width: 180,
-            label: "Balance",
-            dataKey: "balance",
-            numeric: true
-          }
-        ]}
+        columns={getColumns()}
       />
     </Paper>
   );

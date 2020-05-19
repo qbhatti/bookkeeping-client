@@ -12,7 +12,12 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Profile from "../../components/Profile";
 import AccountsTable from "../../components/AccountsTable";
 
-const styles = {};
+const styles = {
+  item: {
+    backgroundColor: "inherit",
+    boxSizing: "border-box"
+  }
+};
 
 function HomePage({ classes, user, history }) {
   return (

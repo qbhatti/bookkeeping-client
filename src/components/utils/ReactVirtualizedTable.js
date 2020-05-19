@@ -123,7 +123,7 @@ class ReactVirtualizedTable extends React.PureComponent {
                       columnIndex: index
                     })
                   }
-                  className={classes.flexContainer}
+                  className={clsx(classes.flexContainer)}
                   cellRenderer={this.cellRenderer}
                   dataKey={dataKey}
                   {...other}
