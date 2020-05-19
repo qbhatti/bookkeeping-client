@@ -40,7 +40,7 @@ function Profile(props) {
     classes
   } = props;
   const getTotalBalance = () => {
-    let balance = totalDebit - totalCredit;
+    let balance = totalCredit - totalDebit;
     return convertBalanceToString(balance);
   };
 

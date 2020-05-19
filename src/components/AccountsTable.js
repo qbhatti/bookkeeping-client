@@ -11,12 +11,15 @@ import useWindowDimensions from "../hooks/useWindowDimensions";
 //components
 import ReactVirtualizedTable from "./utils/ReactVirtualizedTable";
 
+//misc
+import { convertBalanceToString } from "../helpers/helpers";
+
 function AccountsTable({ accountsList, getAccountDetails, history }) {
   const rowHeight = 48;
   const headerHeight = 48;
 
   const rows = accountsList.map((account) => ({
-    balance: account.totalDebits - account.totalCredits,
+    balance: convertBalanceToString(account.totalCredits - account.totalDebits),
     ...account
   }));
 
@@ -46,8 +49,7 @@ function AccountsTable({ accountsList, getAccountDetails, history }) {
     const balanceColumn = {
       width: 180,
       label: "Balance",
-      dataKey: "balance",
-      numeric: true
+      dataKey: "balance"
     };
 
     columns.push(nameColumn);
@@ -83,4 +85,4 @@ const mapActionsToState = {
   getAccountDetails
 };
 
-export default connect(null, mapActionsToState)(AccountsTable);
+export default connect(null, mapActionsToState)(React.memo(AccountsTable));

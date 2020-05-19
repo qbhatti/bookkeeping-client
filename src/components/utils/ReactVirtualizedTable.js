@@ -32,6 +32,12 @@ const styles = (theme) => ({
   },
   noClick: {
     cursor: "initial"
+  },
+  creditBalance: {
+    color: "green"
+  },
+  debitBalance: {
+    color: "red"
   }
 });
 
@@ -51,16 +57,24 @@ class ReactVirtualizedTable extends React.PureComponent {
 
   cellRenderer = ({ cellData, columnIndex }) => {
     const { columns, classes, rowHeight, onRowClick } = this.props;
+    console.log(cellData);
     return (
       <TableCell
         component="div"
         className={clsx(classes.tableCell, classes.flexContainer, {
-          [classes.noClick]: onRowClick == null
+          [classes.noClick]: onRowClick == null,
+          [classes.creditBalance]:
+            columns[columnIndex].dataKey === "balance" &&
+            cellData.endsWith("/- Cr"),
+          [classes.debitBalance]:
+            columns[columnIndex].dataKey === "balance" &&
+            cellData.endsWith("/- Db")
         })}
         variant="body"
         style={{ height: rowHeight }}
         align={
-          (columnIndex != null && columns[columnIndex].numeric) || false
+          (columnIndex != null && columns[columnIndex].dataKey === "balance") ||
+          false
             ? "right"
             : "left"
         }
@@ -83,7 +97,9 @@ class ReactVirtualizedTable extends React.PureComponent {
         )}
         variant="head"
         style={{ height: headerHeight }}
-        align={columns[columnIndex].numeric || false ? "right" : "left"}
+        align={
+          columns[columnIndex].dataKey === "balance" || false ? "right" : "left"
+        }
       >
         <span>{label}</span>
       </TableCell>
