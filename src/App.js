@@ -3,7 +3,7 @@ import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { Switch } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
-import theme from "./components/ui/Theme";
+import theme from "./styles/Theme";
 //redux
 import { Provider } from "react-redux";
 import store from "./redux/store";

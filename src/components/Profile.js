@@ -1,4 +1,5 @@
 import React from "react";
+import clsx from "clsx";
 import PropTypes from "prop-types";
 
 //MUI Stuff
@@ -9,18 +10,17 @@ import Typography from "@material-ui/core/Typography";
 
 //misc
 import { convertBalanceToString } from "../helpers/helpers";
-import commonStyles from "../styles/commonStyles";
 
-const styles = {
-  ...commonStyles,
+const styles = (theme) => ({
   paper: {
     padding: 20,
     position: "sticky"
   },
   summary: {
     marginTop: 10
-  }
-};
+  },
+  ...theme.customClasses
+});
 
 function Profile(props) {
   const {
@@ -47,6 +47,8 @@ function Profile(props) {
   const getNumEqualAccounts = () => {
     return numOfAccounts - numCreditAccounts - numDebitAccounts;
   };
+
+  let totalBalance = getTotalBalance();
 
   let profileMarkup = loading ? (
     <p>LOADING</p>
@@ -101,8 +103,15 @@ function Profile(props) {
             </Typography>
           </Grid>
           <Grid item xs={5}>
-            <Typography variant="body2" align="left">
-              {getTotalBalance()}
+            <Typography
+              variant="body2"
+              align="left"
+              className={clsx({
+                [classes.creditBalance]: totalBalance.endsWith("/- Cr"),
+                [classes.debitBalance]: totalBalance.endsWith("/- Db")
+              })}
+            >
+              {totalBalance}
             </Typography>
           </Grid>
         </Grid>

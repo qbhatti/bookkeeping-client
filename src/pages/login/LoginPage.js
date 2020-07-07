@@ -18,11 +18,8 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-//styles
-import commonStyles from "../../styles/commonStyles";
-
 const styles = (theme) => ({
-  ...commonStyles,
+  ...theme.customClasses,
   root: {
     flexGrow: 1,
     textAlign: "center",
@@ -151,7 +148,7 @@ function LoginPage({ classes, loginUser, history, ui }) {
             <Button
               className={classes.signupButton}
               variant="outlined"
-              color="primary"
+              color="secondary"
               size="large"
               fullWidth
             >

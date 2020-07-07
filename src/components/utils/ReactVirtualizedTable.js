@@ -33,12 +33,7 @@ const styles = (theme) => ({
   noClick: {
     cursor: "initial"
   },
-  creditBalance: {
-    color: theme.palette.credit
-  },
-  debitBalance: {
-    color: theme.palette.debit
-  }
+  ...theme.customClasses
 });
 
 class ReactVirtualizedTable extends React.PureComponent {
