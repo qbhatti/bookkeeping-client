@@ -34,10 +34,10 @@ const styles = (theme) => ({
     cursor: "initial"
   },
   creditBalance: {
-    color: "green"
+    color: theme.palette.credit
   },
   debitBalance: {
-    color: "red"
+    color: theme.palette.debit
   }
 });
 

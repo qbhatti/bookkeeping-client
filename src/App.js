@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { Switch } from "react-router-dom";
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "./components/ui/Theme";
 //redux
 import { Provider } from "react-redux";
 import store from "./redux/store";
@@ -15,6 +17,7 @@ import AccountPage from "./pages/account/AccountPage";
 //components
 import AuthRoute from "./components/utils/AuthRoute";
 import ProtectedRoute from "./components/utils/ProtectedRoute";
+import Header from "./components/ui/Header";
 //styles
 import "./App.css";
 
@@ -36,21 +39,24 @@ if (token) {
 
 function App() {
   return (
-    <Provider store={store}>
-      <div className="container">
-        <Switch>
-          {/*
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <div className="container">
+          <Header />
+          <Switch>
+            {/*
         AuthRoute: redirects to users home page if user is already authenticated, else renders the component
         ProtectedRoute: redirects to login page if user tries to access a protected url
         Route: behaves normally        
         */}
-          <AuthRoute exact path="/signup" component={SignupPage} />
-          <ProtectedRoute exact path="/" component={HomePage} />
-          <AuthRoute exact path="/login" component={LoginPage} />
-          <ProtectedRoute exact path="/account" component={AccountPage} />
-        </Switch>
-      </div>
-    </Provider>
+            <AuthRoute exact path="/signup" component={SignupPage} />
+            <ProtectedRoute exact path="/" component={HomePage} />
+            <AuthRoute exact path="/login" component={LoginPage} />
+            <ProtectedRoute exact path="/account" component={AccountPage} />
+          </Switch>
+        </div>
+      </Provider>
+    </ThemeProvider>
   );
 }
 
