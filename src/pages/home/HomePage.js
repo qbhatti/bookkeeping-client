@@ -14,6 +14,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 //components
 import Profile from "../../components/Profile";
 import AccountsTable from "../../components/AccountsTable";
+import AddAccountDialog from "../../components/forms/AddAccountDialog";
 
 const styles = {
   item: {
@@ -35,8 +36,22 @@ const styles = {
 };
 
 function HomePage({ classes, user, history }) {
+  const [addAccountDialogOpen, setAddAccountDialogOpen] = React.useState(false);
+
+  const handleAccountDialogOpen = () => {
+    setAddAccountDialogOpen(true);
+  };
+
+  const handleAccountDialogClose = () => {
+    setAddAccountDialogOpen(false);
+  };
+
   const addAccountButton = (
-    <Button className={classes.addAcountButton} size="small">
+    <Button
+      className={classes.addAcountButton}
+      size="small"
+      onClick={handleAccountDialogOpen}
+    >
       Add New Account
     </Button>
   );
@@ -65,6 +80,10 @@ function HomePage({ classes, user, history }) {
           </Grid>
         </>
       )}
+      <AddAccountDialog
+        open={addAccountDialogOpen}
+        handleClose={handleAccountDialogClose}
+      />
     </Grid>
   );
 }

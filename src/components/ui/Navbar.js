@@ -21,6 +21,9 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 //redux
 import { connect } from "react-redux";
 
+//components
+import AddAccountDialog from "../forms/AddAccountDialog";
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -86,11 +89,20 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function ResponsiveDrawer(props) {
+function Navbar(props) {
   const { window, authenticated, credentials } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [addAccountDialogOpen, setAddAccountDialogOpen] = React.useState(false);
+
+  const handleAccountDialogOpen = () => {
+    setAddAccountDialogOpen(true);
+  };
+
+  const handleAccountDialogClose = () => {
+    setAddAccountDialogOpen(false);
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -108,7 +120,11 @@ function ResponsiveDrawer(props) {
         <ListItem className={classes.nested} button>
           <ListItemText primary={"Home"} />
         </ListItem>
-        <ListItem className={classes.nested} button>
+        <ListItem
+          className={classes.nested}
+          button
+          onClick={handleAccountDialogOpen}
+        >
           <ListItemText primary={"Add Account"} />
         </ListItem>
       </List>
@@ -220,11 +236,15 @@ function ResponsiveDrawer(props) {
         <div className={classes.toolbar} />
         {props.children}
       </main>
+      <AddAccountDialog
+        open={addAccountDialogOpen}
+        handleClose={handleAccountDialogClose}
+      />
     </div>
   );
 }
 
-ResponsiveDrawer.propTypes = {
+Navbar.propTypes = {
   /**
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
@@ -239,4 +259,4 @@ const mapStateToProps = (state) => ({
   authenticated: state.user.authenticated
 });
 
-export default connect(mapStateToProps)(ResponsiveDrawer);
+export default connect(mapStateToProps)(Navbar);
