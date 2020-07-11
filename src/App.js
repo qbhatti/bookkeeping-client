@@ -17,7 +17,7 @@ import AccountPage from "./pages/account/AccountPage";
 //components
 import AuthRoute from "./components/utils/AuthRoute";
 import ProtectedRoute from "./components/utils/ProtectedRoute";
-import Header from "./components/ui/Header";
+import Navbar from "./components/ui/Navbar";
 //styles
 import "./App.css";
 
@@ -41,8 +41,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <div className="container">
-          <Header />
+        <Navbar>
           <Switch>
             {/*
         AuthRoute: redirects to users home page if user is already authenticated, else renders the component
@@ -54,7 +53,7 @@ function App() {
             <AuthRoute exact path="/login" component={LoginPage} />
             <ProtectedRoute exact path="/account" component={AccountPage} />
           </Switch>
-        </div>
+        </Navbar>
       </Provider>
     </ThemeProvider>
   );
