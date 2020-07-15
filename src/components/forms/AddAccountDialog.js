@@ -47,7 +47,6 @@ export default function AddAccountDialog({ open, handleClose }) {
         value={email}
         onChange={setEmail}
         fullWidth
-        required
       />
       <TextField
         id="phoneNum"
@@ -58,7 +57,6 @@ export default function AddAccountDialog({ open, handleClose }) {
         value={phoneNum}
         onChange={setPhoneNum}
         fullWidth
-        required
       ></TextField>
 
       <TextField
