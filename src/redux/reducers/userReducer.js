@@ -2,7 +2,8 @@ import {
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
   LOADING_USER,
-  SET_USER
+  SET_USER,
+  ADD_ACCOUNT
 } from "../types";
 
 const initialState = {
@@ -32,6 +33,11 @@ export default (state = initialState, action) => {
         authenticated: true,
         loading: false,
         ...action.payload // {credentials, accounts}
+      };
+    case ADD_ACCOUNT:
+      return {
+        ...state,
+        accounts: [action.payload, ...state.accounts]
       };
     default:
       return state;

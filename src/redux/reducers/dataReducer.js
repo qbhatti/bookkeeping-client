@@ -19,6 +19,7 @@ export default (state = initialState, action) => {
         account: action.payload,
         loading: false
       };
+
     default:
       return state;
   }

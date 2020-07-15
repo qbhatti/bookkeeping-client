@@ -14,3 +14,4 @@ export const STOP_LOADING_UI = "STOP_LOADING_UI";
 export const LOADING_DATA = "LOADING_DATA";
 export const SET_ACCOUNTS = "SET_ACCOUNTS";
 export const SET_ACCOUNT = "SET_ACCOUNT";
+export const ADD_ACCOUNT = "ADD_ACCOUNT";

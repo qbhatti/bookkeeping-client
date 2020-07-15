@@ -1,24 +1,59 @@
-import React from "react";
-import useInputState from "../../hooks/useInputState";
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import ResponsiveDialog from "../ui/ResponsiveDialog";
 import TextField from "@material-ui/core/TextField";
-import Select from "@material-ui/core/Select";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
 
-export default function AddAccountDialog({ open, handleClose }) {
+//hooks
+import useInputState from "../../hooks/useInputState";
+
+//component
+import ResponsiveDialog from "../ui/ResponsiveDialog";
+
+//redux
+import { connect } from "react-redux";
+import { addNewAccount, clearErrors } from "../../redux/actions/dataActions";
+
+//helpers
+import { convertStringToTitleCase } from "../../helpers/helpers";
+function AddAccountDialog(props) {
+  const { open, handleClose, ui, addNewAccount } = props;
   const [name, setName, resetName] = useInputState("");
   const [email, setEmail, resetEmail] = useInputState("");
   const [phoneNum, setPhoneNum, resetPhoneNum] = useInputState("");
   const [category, setCategory, resetCategory] = useInputState("Individual");
+  const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    if (ui.errors) {
+      setErrors(ui.errors);
+    }
+  }, [ui.errors]);
+
+  const resetForm = () => {
+    clearErrors();
+    setErrors({});
+    resetName();
+    resetEmail();
+    resetPhoneNum();
+    resetCategory();
+  };
+
+  const handleDialogClose = () => {
+    handleClose();
+    resetForm();
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`${name}, ${email}, ${phoneNum}`);
+
+    addNewAccount({
+      name: convertStringToTitleCase(name),
+      email,
+      phoneNum,
+      category
+    });
+    handleDialogClose();
   };
 
   const dialogTitle = (
@@ -33,8 +68,11 @@ export default function AddAccountDialog({ open, handleClose }) {
         type="text"
         label="Name"
         margin="normal"
+        error={!!errors.name}
+        helperText={errors.name}
         value={name}
         onChange={setName}
+        style={{ textTransform: "capitalize" }}
         fullWidth
         required
       />
@@ -44,6 +82,8 @@ export default function AddAccountDialog({ open, handleClose }) {
         type="email"
         label="Email"
         margin="normal"
+        error={!!errors.email}
+        helperText={errors.email}
         value={email}
         onChange={setEmail}
         fullWidth
@@ -54,6 +94,8 @@ export default function AddAccountDialog({ open, handleClose }) {
         type="number"
         label="Phone Number"
         margin="normal"
+        error={!!errors.phoneNum}
+        helperText={errors.phoneNum}
         value={phoneNum}
         onChange={setPhoneNum}
         fullWidth
@@ -63,11 +105,12 @@ export default function AddAccountDialog({ open, handleClose }) {
         select
         label="Category"
         value={category}
+        error={!!errors.category}
+        helperText={errors.category || "Please choose the category of account."}
         onChange={setCategory}
         SelectProps={{
           native: true
         }}
-        helperText="Please choose the category of account."
         fullWidth
         margin="normal"
         required
@@ -85,7 +128,7 @@ export default function AddAccountDialog({ open, handleClose }) {
 
   const dialogActions = (
     <>
-      <Button onClick={handleClose} color="primary">
+      <Button onClick={handleDialogClose} color="primary">
         Cancel
       </Button>
       <Button
@@ -103,10 +146,26 @@ export default function AddAccountDialog({ open, handleClose }) {
   return (
     <ResponsiveDialog
       open={open}
-      handleClose={handleClose}
+      handleClose={handleDialogClose}
       dialogTitle={dialogTitle}
       dialogContent={dialogContent}
       dialogActions={dialogActions}
     />
   );
 }
+
+AddAccountDialog.propTypes = {
+  ui: PropTypes.object.isRequired,
+  addNewAccount: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  ui: state.ui
+});
+
+export default connect(mapStateToProps, { addNewAccount, clearErrors })(
+  AddAccountDialog
+);

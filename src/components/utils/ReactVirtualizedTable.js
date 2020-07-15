@@ -52,7 +52,6 @@ class ReactVirtualizedTable extends React.PureComponent {
 
   cellRenderer = ({ cellData, columnIndex }) => {
     const { columns, classes, rowHeight, onRowClick } = this.props;
-    console.log(cellData);
     return (
       <TableCell
         component="div"
