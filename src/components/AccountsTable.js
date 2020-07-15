@@ -32,17 +32,17 @@ function AccountsTable({ accountsList, getAccountDetails, history }) {
   const getColumns = () => {
     let columns = [];
     const nameColumn = {
-      width: 300,
+      width: 350,
       label: "Name",
       dataKey: "name"
     };
     const phoneNumColumn = {
-      width: 180,
+      width: 165,
       label: "Phone\u00A0Number",
       dataKey: "phoneNum"
     };
     const emailColumn = {
-      width: 180,
+      width: 200,
       label: "Email",
       dataKey: "email"
     };
@@ -53,11 +53,17 @@ function AccountsTable({ accountsList, getAccountDetails, history }) {
     };
 
     columns.push(nameColumn);
-    if (width > 850) {
-      columns[0].width = 450;
+    if (width > 1050) {
       columns.push(phoneNumColumn);
-      columns.push(emailColumn);
     }
+    if (width > 1280) {
+      columns.push(emailColumn);
+      columns[2].width = 250;
+    }
+    if (width > 1600) {
+      columns[0].width = 380;
+    }
+
     columns.push(balanceColumn);
     return columns;
   };
