@@ -35,7 +35,7 @@ const styles = {
   }
 };
 
-function HomePage({ classes, user, history, clearErrors }) {
+function HomePage({ classes, user, history }) {
   const [addAccountDialogOpen, setAddAccountDialogOpen] = React.useState(false);
 
   const handleAccountDialogOpen = () => {

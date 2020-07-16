@@ -13,7 +13,7 @@ import { logoutUser, getUserData } from "./redux/actions/userActions";
 import HomePage from "./pages/home/HomePage";
 import LoginPage from "./pages/login/LoginPage";
 import SignupPage from "./pages/signup/SignupPage";
-import AccountPage from "./pages/account/AccountPage";
+import AccountDetailsPage from "./pages/account/AccountDetailsPage";
 //components
 import AuthRoute from "./components/utils/AuthRoute";
 import ProtectedRoute from "./components/utils/ProtectedRoute";
@@ -51,7 +51,11 @@ function App() {
             <AuthRoute exact path="/signup" component={SignupPage} />
             <ProtectedRoute exact path="/" component={HomePage} />
             <AuthRoute exact path="/login" component={LoginPage} />
-            <ProtectedRoute exact path="/account" component={AccountPage} />
+            <ProtectedRoute
+              exact
+              path="/account"
+              component={AccountDetailsPage}
+            />
           </Switch>
         </Navbar>
       </Provider>
