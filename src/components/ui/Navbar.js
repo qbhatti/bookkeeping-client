@@ -20,6 +20,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 //redux
 import { connect } from "react-redux";
+import { logoutUser } from "../../redux/actions/userActions";
 
 //components
 import AddAccountDialog from "../forms/AddAccountDialog";
@@ -82,15 +83,12 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(4)
   },
   logoutIcon: {
-    marginLeft: "auto",
-    [theme.breakpoints.down("xs")]: {
-      display: "none"
-    }
+    marginLeft: "auto"
   }
 }));
 
 function Navbar(props) {
-  const { window, authenticated, credentials } = props;
+  const { window, authenticated, credentials, logoutUser } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -190,6 +188,7 @@ function Navbar(props) {
                   aria-label="log out"
                   edge="end"
                   className={classes.logoutIcon}
+                  onClick={logoutUser}
                 >
                   <ExitToAppIcon />
                 </IconButton>
@@ -251,7 +250,8 @@ Navbar.propTypes = {
    */
   window: PropTypes.func,
   credentials: PropTypes.object,
-  authenticated: PropTypes.bool.isRequired
+  authenticated: PropTypes.bool.isRequired,
+  logoutUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -259,4 +259,4 @@ const mapStateToProps = (state) => ({
   authenticated: state.user.authenticated
 });
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps, { logoutUser })(Navbar);
