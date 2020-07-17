@@ -3,12 +3,14 @@ import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 
 //hooks
 import useInputState from "../../hooks/useInputState";
 
 //component
 import ResponsiveDialog from "../ui/ResponsiveDialog";
+import useTheme from "@material-ui/core/styles/useTheme";
 
 //redux
 import { connect } from "react-redux";
@@ -23,6 +25,7 @@ function AddAccountDialog(props) {
   const [phoneNum, setPhoneNum, resetPhoneNum] = useInputState("");
   const [category, setCategory, resetCategory] = useInputState("Individual");
   const [errors, setErrors] = useState({});
+  const theme = useTheme();
 
   useEffect(() => {
     if (ui.errors) {
@@ -123,6 +126,11 @@ function AddAccountDialog(props) {
         <option value="Income">Income</option>
         <option value="General">General</option>
       </TextField>
+      {errors && (
+        <Typography className={theme.customClasses.error} variant="body2">
+          {errors.general}
+        </Typography>
+      )}
     </form>
   );
 

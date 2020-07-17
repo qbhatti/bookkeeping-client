@@ -66,6 +66,10 @@ export default createMuiTheme({
     },
     debitBalance: {
       color: debitColor
+    },
+    error: {
+      color: "red",
+      fontSize: "0.8rem"
     }
   }
 });
