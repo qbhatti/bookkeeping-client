@@ -73,7 +73,7 @@ function Profile(props) {
         <Grid container spacing={8} justify="center">
           <Grid item xs={5}>
             <Typography variant="body2" align="right">
-              Credits
+              Credit
             </Typography>
           </Grid>
           <Grid item xs={5}>
@@ -86,7 +86,7 @@ function Profile(props) {
         <Grid container spacing={8} justify="center">
           <Grid item xs={5}>
             <Typography variant="body2" align="right">
-              Debits
+              Debit
             </Typography>
           </Grid>
           <Grid item xs={5}>
@@ -128,7 +128,7 @@ function Profile(props) {
         <Grid container spacing={8} justify="center">
           <Grid item xs={6}>
             <Typography variant="body2" align="right">
-              Total Accounts
+              Total
             </Typography>
           </Grid>
           <Grid item xs={6}>
@@ -141,7 +141,7 @@ function Profile(props) {
         <Grid container spacing={8} justify="center">
           <Grid item xs={6}>
             <Typography variant="body2" align="right">
-              Credit Accounts
+              Credits
             </Typography>
           </Grid>
           <Grid item xs={6}>
@@ -154,7 +154,7 @@ function Profile(props) {
         <Grid container spacing={8} justify="center">
           <Grid item xs={6}>
             <Typography variant="body2" align="right">
-              Debit Accounts
+              Debits
             </Typography>
           </Grid>
           <Grid item xs={6}>
@@ -167,7 +167,7 @@ function Profile(props) {
         <Grid container spacing={8} justify="center">
           <Grid item xs={6}>
             <Typography variant="body2" align="right">
-              Equal Accounts
+              Equals
             </Typography>
           </Grid>
           <Grid item xs={6}>
