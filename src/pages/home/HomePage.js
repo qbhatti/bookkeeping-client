@@ -67,10 +67,10 @@ function HomePage({ classes, user, history }) {
             </Toolbar>
           </Hidden>
 
-          <Grid className={classes.item} item md={5} sm={6} xs={12}>
+          <Grid className={classes.item} item lg={4} md={5} sm={6} xs={12}>
             <Profile user={user} />
           </Grid>
-          <Grid className={classes.item} item md={7} sm={6} xs={12}>
+          <Grid className={classes.item} item lg={8} md={7} sm={6} xs={12}>
             <Hidden smUp className={classes.hiddenBar} implementation="css">
               <Toolbar className={classes.secondaryBar}>
                 {addAccountButton}
