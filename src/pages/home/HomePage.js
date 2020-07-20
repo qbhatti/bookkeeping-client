@@ -15,6 +15,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Profile from "../../components/Profile";
 import AccountsTable from "../../components/AccountsTable";
 import AddAccountDialog from "../../components/forms/AddAccountDialog";
+import MuiBackdrop from "../../components/ui/MuiBackdrop";
 
 const styles = {
   item: {
@@ -35,7 +36,7 @@ const styles = {
   }
 };
 
-function HomePage({ classes, user, history }) {
+function HomePage({ classes, user, ui, history }) {
   const [addAccountDialogOpen, setAddAccountDialogOpen] = React.useState(false);
 
   const handleAccountDialogOpen = () => {
@@ -51,14 +52,15 @@ function HomePage({ classes, user, history }) {
       className={classes.addAcountButton}
       size="small"
       onClick={handleAccountDialogOpen}
+      disableRipple
     >
       Add New Account
     </Button>
   );
   return (
     <Grid container spacing={2}>
-      {user.loading ? (
-        <p>LOADING</p>
+      {user.loading || ui.loading ? (
+        <MuiBackdrop open={ui.loading || user.loading} />
       ) : (
         <>
           <Hidden xsDown className={classes.hiddenBar} implementation="css">
@@ -90,11 +92,13 @@ function HomePage({ classes, user, history }) {
 
 HomePage.propTypes = {
   user: PropTypes.object.isRequired,
+  ui: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  user: state.user
+  user: state.user,
+  ui: state.ui
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(HomePage));

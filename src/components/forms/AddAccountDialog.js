@@ -1,23 +1,32 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+
+//MUI stuff
 import Button from "@material-ui/core/Button";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
 
 //hooks
 import useInputState from "../../hooks/useInputState";
 
 //component
 import ResponsiveDialog from "../ui/ResponsiveDialog";
-import useTheme from "@material-ui/core/styles/useTheme";
-
+import MuiBackdrop from "../ui/MuiBackdrop";
 //redux
 import { connect } from "react-redux";
 import { addNewAccount, clearErrors } from "../../redux/actions/dataActions";
 
 //helpers
 import { convertStringToTitleCase } from "../../helpers/helpers";
+
+//*****************Imports End***************************************
+
+const useStyles = makeStyles((theme) => ({
+  error: theme.customClasses.error
+}));
+
 function AddAccountDialog(props) {
   const { open, handleClose, ui, addNewAccount } = props;
   const [name, setName, resetName] = useInputState("");
@@ -25,7 +34,8 @@ function AddAccountDialog(props) {
   const [phoneNum, setPhoneNum, resetPhoneNum] = useInputState("");
   const [category, setCategory, resetCategory] = useInputState("Individual");
   const [errors, setErrors] = useState({});
-  const theme = useTheme();
+
+  const classes = useStyles();
 
   useEffect(() => {
     if (ui.errors) {
@@ -127,7 +137,7 @@ function AddAccountDialog(props) {
         <option value="General">General</option>
       </TextField>
       {errors && (
-        <Typography className={theme.customClasses.error} variant="body2">
+        <Typography className={classes.error} variant="body2">
           {errors.general}
         </Typography>
       )}
@@ -144,7 +154,6 @@ function AddAccountDialog(props) {
         color="primary"
         form="account-form"
         type="submit"
-        autoFocus
       >
         Save
       </Button>
@@ -152,13 +161,16 @@ function AddAccountDialog(props) {
   );
 
   return (
-    <ResponsiveDialog
-      open={open}
-      handleClose={handleDialogClose}
-      dialogTitle={dialogTitle}
-      dialogContent={dialogContent}
-      dialogActions={dialogActions}
-    />
+    <>
+      <ResponsiveDialog
+        open={open}
+        handleClose={handleDialogClose}
+        dialogTitle={dialogTitle}
+        dialogContent={dialogContent}
+        dialogActions={dialogActions}
+      />
+      <MuiBackdrop open={ui.loading} />
+    </>
   );
 }
 
