@@ -35,8 +35,13 @@ export default (state = initialState, action) => {
         ...action.payload // {credentials, accounts}
       };
     case ADD_ACCOUNT:
+      const numOfAccounts = state.credentials.numOfAccounts + 1;
       return {
         ...state,
+        credentials: {
+          ...state.credentials,
+          numOfAccounts
+        },
         accounts: [action.payload, ...state.accounts]
       };
     default:

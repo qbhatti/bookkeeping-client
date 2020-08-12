@@ -60,6 +60,7 @@ function AddAccountDialog(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    debugger;
     addNewAccount({
       name: convertStringToTitleCase(name),
       email,
