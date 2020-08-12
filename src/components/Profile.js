@@ -57,7 +57,7 @@ function Profile(props) {
       <Typography variant="h5" align="center">
         {companyName}
       </Typography>
-      <Typography variant="body2" className={classes.name} align="center">
+      <Typography variant="body2" align="center">
         {name}
       </Typography>
       <Typography variant="body2" align="center">
