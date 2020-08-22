@@ -11,6 +11,7 @@ import MuiBackdrop from "../../components/ui/MuiBackdrop";
 
 //component
 import AccountSummary from "../../components/AccountSummary";
+import TransactionsTable from "../../components/TransactionsTable";
 
 const styles = {
   item: {
@@ -30,7 +31,7 @@ function AccountDetailsPage({ classes, data, ui, history }) {
             <AccountSummary account={data.account} />
           </Grid>
           <Grid className={classes.item} item lg={8} md={7} sm={6} xs={12}>
-            <p>TRANSACTIONS</p>
+            <TransactionsTable />
           </Grid>
         </>
       )}
