@@ -3,7 +3,6 @@ import Paper from "@material-ui/core/Paper";
 
 //redux
 import { connect } from "react-redux";
-import { getAccountDetails } from "../redux/actions/dataActions";
 
 //hooks
 import useWindowDimensions from "../hooks/useWindowDimensions";
@@ -14,14 +13,12 @@ import ReactVirtualizedTable from "./utils/ReactVirtualizedTable";
 //misc
 import { convertBalanceToString } from "../helpers/helpers";
 
-export default function TransactionsTable({
+function TransactionsTable({
   transactionsList,
   getTransactionDetails,
   history
 }) {
   const [transactions, setTransactions] = useState([]);
-  const rowHeight = 48;
-  const headerHeight = 48;
 
   useEffect(() => {
     setTransactions(calculateTransactionBalances(transactionsList));
@@ -47,5 +44,78 @@ export default function TransactionsTable({
     return [].concat(transactionsWithBal).reverse();
   };
 
-  return <p>Transactions</p>;
+  const rowHeight = 48;
+  const headerHeight = 48;
+
+  const rows = transactions;
+
+  const { width } = useWindowDimensions();
+
+  const handleRowClick = ({ index }) => {
+    //getTransactionDetails(rows[index].transactionId, history);
+  };
+
+  const getColumns = () => {
+    let columns = [];
+    const dateColumn = {
+      width: 150,
+      label: "Date",
+      dataKey: "date"
+    };
+    const detailsColumn = {
+      width: 165,
+      label: "Details",
+      dataKey: "details"
+    };
+    const typeColumn = {
+      width: 100,
+      label: "Type",
+      dataKey: "type"
+    };
+    const amountColumn = {
+      width: 150,
+      label: "Amount",
+      dataKey: "amount"
+    };
+    const balanceColumn = {
+      width: 180,
+      label: "Balance",
+      dataKey: "balance"
+    };
+
+    columns.push(dateColumn);
+    if (width > 1050) {
+      columns.push(typeColumn);
+    }
+    if (width > 1280) {
+      columns.push(detailsColumn);
+      columns[2].width = 250;
+    }
+    if (width > 1600) {
+      columns[2].width = 380;
+    }
+    columns.push(amountColumn);
+    columns.push(balanceColumn);
+    return columns;
+  };
+
+  return (
+    <Paper
+      style={{
+        height: rows.length * rowHeight + headerHeight,
+        width: "100%"
+      }}
+    >
+      <ReactVirtualizedTable
+        rowHeight={rowHeight}
+        headerHeight={headerHeight}
+        rowCount={rows.length}
+        rowGetter={({ index }) => rows[index]}
+        onRowClick={handleRowClick}
+        columns={getColumns()}
+      />
+    </Paper>
+  );
 }
+
+export default TransactionsTable;
