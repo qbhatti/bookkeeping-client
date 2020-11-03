@@ -1,10 +1,6 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
 
-//redux
-import { connect } from "react-redux";
-import { getAccountDetails } from "../redux/actions/dataActions";
-
 //hooks
 import useWindowDimensions from "../hooks/useWindowDimensions";
 
@@ -26,7 +22,10 @@ function AccountsTable({ accountsList, getAccountDetails, history }) {
   const { width } = useWindowDimensions();
 
   const handleRowClick = ({ index }) => {
-    getAccountDetails(rows[index].accountId, history);
+    history.push({
+      pathname: "/account",
+      state: { accountId: rows[index].accountId }
+    });
   };
 
   const getColumns = () => {
@@ -87,8 +86,4 @@ function AccountsTable({ accountsList, getAccountDetails, history }) {
   );
 }
 
-const mapActionsToState = {
-  getAccountDetails
-};
-
-export default connect(null, mapActionsToState)(React.memo(AccountsTable));
+export default React.memo(AccountsTable);

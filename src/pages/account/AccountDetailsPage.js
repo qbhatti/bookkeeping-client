@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 
 //Redux
 import { connect } from "react-redux";
+import { getAccountDetails } from "../../redux/actions/dataActions";
 
 //MUI stuff
 import Grid from "@material-ui/core/Grid";
@@ -20,10 +21,14 @@ const styles = {
   }
 };
 
-function AccountDetailsPage({ classes, data, ui, history }) {
+function AccountDetailsPage({ classes, getAccountDetails, data, ui, history }) {
+  useEffect(() => {
+    getAccountDetails(history.location.state.accountId);
+  }, []);
+
   return (
     <Grid container spacing={2}>
-      {data.loading || ui.loading ? (
+      {Object.keys(data.account).length === 0 ? (
         <MuiBackdrop open={ui.loading || data.loading} />
       ) : (
         <>
@@ -50,4 +55,11 @@ const mapStateToProps = (state) => ({
   ui: state.ui
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(AccountDetailsPage));
+const mapActionsToState = {
+  getAccountDetails
+};
+
+export default connect(
+  mapStateToProps,
+  mapActionsToState
+)(withStyles(styles)(AccountDetailsPage));

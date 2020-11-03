@@ -8,14 +8,17 @@ import {
   SET_ERRORS
 } from "../types";
 
-export const getAccountDetails = (accountId, history) => (dispatch) => {
+export const getAccountDetails = (accountId) => (dispatch) => {
   dispatch({ type: LOADING_DATA });
 
   axios
     .post(`/account/${accountId}`)
     .then((res) => {
       dispatch({ type: SET_ACCOUNT, payload: res.data });
-      history.push("/account");
+      // history.push({
+      //   pathname: "/account",
+      //   state: { accountId: accountId }
+      // });
     })
     .catch((err) => {
       console.log(err);
