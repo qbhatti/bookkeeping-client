@@ -15,10 +15,6 @@ export const getAccountDetails = (accountId) => (dispatch) => {
     .post(`/account/${accountId}`)
     .then((res) => {
       dispatch({ type: SET_ACCOUNT, payload: res.data });
-      // history.push({
-      //   pathname: "/account",
-      //   state: { accountId: accountId }
-      // });
     })
     .catch((err) => {
       console.log(err);
@@ -40,7 +36,14 @@ export const addNewAccount = (accountData) => (dispatch) => {
 };
 
 export const addTransaction = (transactionData) => (dispatch) => {
-  console.log(transactionData);
+  axios
+    .post(`/transaction/${transactionData.accountId}`, transactionData)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 export const clearErrors = () => (dispatch) => {
