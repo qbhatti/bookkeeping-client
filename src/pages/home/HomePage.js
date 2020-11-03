@@ -22,7 +22,7 @@ const styles = {
     backgroundColor: "inherit",
     boxSizing: "border-box"
   },
-  addAcountButton: {
+  addButton: {
     opacity: 0.7,
     marginLeft: "auto"
   },
@@ -47,7 +47,7 @@ function HomePage({ classes, user, ui, history }) {
     setAddAccountDialogOpen(false);
   };
 
-  const addAccountButton = (
+  const addButton = (
     <Button
       className={classes.addAcountButton}
       size="small"
@@ -64,9 +64,7 @@ function HomePage({ classes, user, ui, history }) {
       ) : (
         <>
           <Hidden xsDown className={classes.hiddenBar} implementation="css">
-            <Toolbar className={classes.secondaryBar}>
-              {addAccountButton}
-            </Toolbar>
+            <Toolbar className={classes.secondaryBar}>{addButton}</Toolbar>
           </Hidden>
 
           <Grid className={classes.item} item lg={4} md={5} sm={6} xs={12}>
@@ -74,9 +72,7 @@ function HomePage({ classes, user, ui, history }) {
           </Grid>
           <Grid className={classes.item} item lg={8} md={7} sm={6} xs={12}>
             <Hidden smUp className={classes.hiddenBar} implementation="css">
-              <Toolbar className={classes.secondaryBar}>
-                {addAccountButton}
-              </Toolbar>
+              <Toolbar className={classes.secondaryBar}>{addButton}</Toolbar>
             </Hidden>
             <AccountsTable accountsList={user.accounts} history={history} />
           </Grid>

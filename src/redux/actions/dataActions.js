@@ -39,6 +39,10 @@ export const addNewAccount = (accountData) => (dispatch) => {
     });
 };
 
+export const addTransaction = (transactionData) => (dispatch) => {
+  console.log(transactionData);
+};
+
 export const clearErrors = () => (dispatch) => {
   dispatch({ type: CLEAR_ERRORS });
 };
